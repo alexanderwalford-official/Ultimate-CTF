@@ -7,3 +7,5 @@ Ultimate capture the flag plugin.
 
 ## Dependancys:
 #### Java Runtime - Version 11
+#### World Edit (optional)
+#### World Gaurd (optional)
