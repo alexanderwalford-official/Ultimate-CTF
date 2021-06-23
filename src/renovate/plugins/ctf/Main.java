@@ -39,8 +39,7 @@ public class Main extends JavaPlugin {
 	public void onEnable() {	
 		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Ultimate Capture The Flag by Renovate Software started! \n");	
 		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Settings can be defined via commands or the config.yml file. \n");
-		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Lobby checkng started.. \n");	
-		checklobby();
+
 	}
 	
 	@Override
@@ -49,7 +48,8 @@ public class Main extends JavaPlugin {
 	}
 	
 	
-	void checklobby() {
+	void checklobby(CommandSender sender) {
+		Player player = (Player) sender;
 		Bukkit.getScheduler().runTaskAsynchronously(this, new Runnable() {
 	        @Override
 	        public void run() {
@@ -59,7 +59,19 @@ public class Main extends JavaPlugin {
 	    		Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
 	        	if (board.getEntries().size() > 2) {
 	    			// More than 2 players have joined, start the count down!
-	    			System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Minimum amount of players detected! Starting count down..");
+	    			sender.sendMessage("§4§l[CTF]§r Minimum amount of players detected! Starting count down..");
+	    			try
+	    			{
+	    			    Thread.sleep(1000);
+	    			    // String title, String subtitle, int fadeIn, int stay, int fadeOut.
+	    			    player.sendTitle(ChatColor.AQUA + "10", "Seconds", 1, 10, 1);
+	    			    Thread.sleep(1000);
+	    			    player.sendTitle(ChatColor.AQUA + "9", "Seconds", 1, 10, 1);
+	    			}
+	    			catch(InterruptedException ex)
+	    			{
+	    			    Thread.currentThread().interrupt();
+	    			}
 	    			
 	    		}
 	        }
@@ -128,6 +140,10 @@ public class Main extends JavaPlugin {
 		        
 		        sender.sendMessage("§4§l[CTF]§r Joined the game.");
 		        player.playSound(player.getLocation(), "block.note_block.guitar", 3.0F, 0.5F);
+		        
+				System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Lobby checkng started.. \n");	
+				checklobby(sender);
+		        
 				return true;
 		    }
 			
