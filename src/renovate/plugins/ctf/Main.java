@@ -40,7 +40,16 @@ public class Main extends JavaPlugin {
 		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Ultimate Capture The Flag by Renovate Software started! \n");	
 		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Settings can be defined via commands or the config.yml file. \n");
 		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Lobby checkng started.. \n");	
-		
+		checklobby();
+	}
+	
+	@Override
+	public void onDisable() {
+		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Ultimate CTF plugin deactivated.");	
+	}
+	
+	
+	void checklobby() {
 		Bukkit.getScheduler().runTaskAsynchronously(this, new Runnable() {
 	        @Override
 	        public void run() {
@@ -51,26 +60,18 @@ public class Main extends JavaPlugin {
 	        	if (board.getEntries().size() > 2) {
 	    			// More than 2 players have joined, start the count down!
 	    			System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Minimum amount of players detected! Starting count down..");
+	    			
 	    		}
 	        }
 	    });
 	}
 	
-	@Override
-	public void onDisable() {
-		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Ultimate CTF plugin deactivated.");	
-	}
 	
 	void startgame() {
 		// Here we will teleport the players to the correct world, then teleport them to the correct spawn
 		// based on their team. A minimum of 2 players is required to play.
 		
 	}
-	
-	
-
-	
-	
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
