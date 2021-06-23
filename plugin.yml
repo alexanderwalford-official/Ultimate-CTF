@@ -1,0 +1,95 @@
+main: renovate.plugins.ctf.Main
+name: UltimateCTF
+version: '1.0'
+api-version: 1.16
+author: Renovate Software
+website: renovatesoftware.com
+description: Capture the flag in Minecraft
+commands:
+  ctf:
+   description: Main plugin command
+   usage: /ctf
+   permission: ctf.main
+   permission-message: You don't have the ctf.main permission
+  ctf help:
+   description: Help plugin command
+   usage: /ctf help
+   permission: ctf.help
+   permission-message: You don't have the ctf.help permission
+  ctf join:
+   description: Join plugin command
+   usage: /ctf join
+   permission: ctf.join
+   permission-message: You don't have the ctf.join permission
+  ctf leave:
+   description: Join plugin command
+   usage: /ctf leave
+   permission: ctf.leave
+   permission-message: You don't have the ctf.leave permission
+  ctf set bluespawn:
+   description: Set blue team spawn
+   usage: /ctf set bluespawn
+   permission: ctf.set
+   permission-message: You don't have the ctf.set permission
+  ctf set redspawn:
+   description: Set red team spawn
+   usage: /ctf set redspawn
+   permission: ctf.set
+   permission-message: You don't have the ctf.set permission
+  ctf set flag1:
+   description: Set flag1
+   usage: /ctf set flag1
+   permission: ctf.set
+   permission-message: You don't have the ctf.set permission
+  ctf set flag2:
+   description: Set flag2
+   usage: /ctf set flag2
+   permission: ctf.set
+   permission-message: You don't have the ctf.set permission
+  ctf set flag3:
+   description: Set flag3
+   usage: /ctf set flag3
+   permission: ctf.set
+   permission-message: You don't have the ctf.set permission
+  ctf set flag4:
+   description: Set flag4
+   usage: /ctf set flag4
+   permission: ctf.set
+   permission-message: You don't have the ctf.set permission
+  ctf set world:
+   description: Set world
+   usage: /ctf set world
+   permission: ctf.set
+   permission-message: You don't have the ctf.set permission
+  ctf set lobby:
+   description: Set lobby
+   usage: /ctf set lobby
+   permission: ctf.set
+   permission-message: You don't have the ctf.set permission
+  ctf set serverspawn:
+   description: Set serverspawn
+   usage: /ctf set serverspawn
+   permission: ctf.set
+   permission-message: You don't have the ctf.set permission
+  ctf set spectate:
+   description: Set spectate
+   usage: /ctf set spectate
+   permission: ctf.set
+   permission-message: You don't have the ctf.set permission
+permissions:
+  ctf.help:
+   description: Allows help command
+   default: op
+  ctf.main:
+   description: Allows main command
+   default: op
+  ctf.join:
+   description: Allows join command
+   default: op
+  ctf.leave:
+   description: Allows leave command
+   default: op
+  ctf.set:
+   description: Allows set command
+   default: op
+   
