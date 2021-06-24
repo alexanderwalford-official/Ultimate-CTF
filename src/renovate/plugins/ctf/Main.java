@@ -11,6 +11,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -45,9 +47,8 @@ public class Main extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {	
-		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Ultimate Capture The Flag by Renovate Software started! \n");	
-		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Settings can be defined via commands or the config.yml file. \n");    
-        
+		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Ultimate Capture The Flag by Renovate Software started!");	
+		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Settings can be defined via commands or the config.yml file.");       
 	}
 	
 	@Override
@@ -55,21 +56,48 @@ public class Main extends JavaPlugin {
 		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Ultimate CTF plugin deactivated.");	
 	}
 	
+	@EventHandler
+    public void onJoin(PlayerJoinEvent event, CommandSender sender) {
+		// Executed when the player joins the server
+		Player player = (Player) sender;
+		if (player.isOp()) {
+			// Player has full permissions due to being a server operator
+			sender.sendMessage("§4§l[CTF]§r You are running version §c" + pdf.getVersion() + "§r of Ultimate Capture The Flag. §7You can see this message as you are a server operator.");
+		}
+	}
+	
 	
 	int standspawned = 0;
 	
 	void checklobby(CommandSender sender) {
+		Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
+		Team team = board.registerNewTeam("redteam");
+		Team team2 = board.registerNewTeam("blueteam");
 		Player player = (Player) sender;
 		Bukkit.getScheduler().runTaskAsynchronously(this, new Runnable() {
 	        @Override
-	        public void run() {
+	        public void run() { // Is this looped? Testing w/ 2 or more players required
 	        	// Check for minimum of 2 players.
 	    		// Implement a level system?
 	    		// Some methods may need to be looped for specific asynchronous checks?
-	    		Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
 	        	if (board.getEntries().size() > 2) {
 	    			// More than 2 players have joined, start the count down!
 	    			sender.sendMessage("§4§l[CTF]§r Minimum amount of players detected! Starting count down..");
+	    			
+	    			// Team balancing
+	    			if (team.getEntries().size() < team2.getEntries().size()) {
+	    				team.addPlayer(player); // join red team		
+	    				sender.sendMessage("§4§l[CTF]§r To balance the game, you have been moved to the red team.");
+	    			}
+	    			
+	    			if (team.getEntries().size() > team2.getEntries().size()) {
+	    				team2.addPlayer(player); // join blue team		
+	    				sender.sendMessage("§4§l[CTF]§r To balance the game, you have been moved to the blue team.");
+	    			}
+	    			
+	    			// Disable friendly fire
+	    			team.setAllowFriendlyFire(false);
+	    					
 	    			
 	    			try
 	    			{
@@ -222,6 +250,9 @@ public class Main extends JavaPlugin {
 		
 		// Time for async function for position checking
 		String location = player.getLocation().toString();
+		
+		var redteampoints = 0;
+		var blueteampoints = 0;
 			
 		var flag1 = config.getString("# flag1: ");
 		var flag2 = config.getString("# flag2: ");
@@ -232,8 +263,7 @@ public class Main extends JavaPlugin {
         String[] array2 = flag2.split(", ", -1);
         String[] array3 = flag3.split(", ", -1);
         String[] array4 = flag4.split(", ", -1);
-        String[] playerloc = location.split(", ", -1);
-        
+        String[] playerloc = location.split(", ", -1);        
         
         double x1 = Double.parseDouble(array1[0]);
         double y1 = Double.parseDouble(array1[1]);
@@ -253,11 +283,21 @@ public class Main extends JavaPlugin {
         double playerlocz = Double.parseDouble(playerloc[2]);
 		
 		
+        // Add points to team if a flag belongs to them
+        
+        
+        
+        
         // flag 1 regions
         
 		if (x1 == playerlocx && y1 == playerlocy && z1 == playerlocz) {
 			// Player is standing on flag 1 centre block
 			
+			// Is the flag claimed?
+			// if so, which team has claimed it?
+			
+			
+						
 		}	
 		if (x1-1 == playerlocx && y1 == playerlocy && z1 == playerlocz) {
 			// Player is standing on flag 1 outer block
