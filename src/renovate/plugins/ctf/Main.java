@@ -40,9 +40,8 @@ public class Main extends JavaPlugin {
 	FileConfiguration config = getConfig();
 	PluginDescriptionFile pdf = this.getDescription();	
 	
-	// Add team selection with armour stands or signs?
-	// Handle right click event
-	// Add blue and red teams to score board
+
+	// Handle right click event on armour stands for kits
 	
 	
 	@Override
@@ -87,17 +86,18 @@ public class Main extends JavaPlugin {
 	    			// Team balancing
 	    			if (team.getEntries().size() < team2.getEntries().size()) {
 	    				team.addPlayer(player); // join red team		
+	    				team2.removePlayer(player); // remove from other team in case of already selecting team
 	    				sender.sendMessage("§4§l[CTF]§r To balance the game, you have been moved to the red team.");
 	    			}
 	    			
 	    			if (team.getEntries().size() > team2.getEntries().size()) {
+	    				team.removePlayer(player); // remove from other team in case of already selecting team
 	    				team2.addPlayer(player); // join blue team		
 	    				sender.sendMessage("§4§l[CTF]§r To balance the game, you have been moved to the blue team.");
 	    			}
 	    			
 	    			// Disable friendly fire
-	    			team.setAllowFriendlyFire(false);
-	    					
+	    			team.setAllowFriendlyFire(false);	    					
 	    			
 	    			try
 	    			{
@@ -231,8 +231,17 @@ public class Main extends JavaPlugin {
 	}
 	
 	
+	int redteampoints = 0;
+	int blueteampoints = 0;
+	String flag1colour = "white"; // white by default (not claimed)
+	String flag2colour = "white"; 
+	String flag3colour = "white";
+	String flag4colour = "white"; 
+	
+	
 	@SuppressWarnings("deprecation")
 	void startgame(CommandSender sender) {
+		Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
 		Player player = (Player) sender;
 		// Here we will teleport the players to the correct world, then teleport them to the correct spawn
 		// based on their team. A minimum of 2 players is required to play.
@@ -250,9 +259,6 @@ public class Main extends JavaPlugin {
 		
 		// Time for async function for position checking
 		String location = player.getLocation().toString();
-		
-		var redteampoints = 0;
-		var blueteampoints = 0;
 			
 		var flag1 = config.getString("# flag1: ");
 		var flag2 = config.getString("# flag2: ");
@@ -283,7 +289,7 @@ public class Main extends JavaPlugin {
         double playerlocz = Double.parseDouble(playerloc[2]);
 		
 		
-        // Add points to team if a flag belongs to them
+        // Add points to team if a flag belongs to them every second
         
         
         
@@ -295,8 +301,44 @@ public class Main extends JavaPlugin {
 			
 			// Is the flag claimed?
 			// if so, which team has claimed it?
-			
-			
+			if (flag1colour == "white") {
+				// Nobody has captured the point yet
+				if (board.getPlayerTeam(player).getName() == "redteam") {
+					// Capture the flag as the red team!
+					
+				}
+				if (board.getPlayerTeam(player).getName() == "blueteam") {
+					// Capture the flag as the blue team!
+					
+				}
+			}
+			if (flag1colour == "red") {
+				// Red team owns this flag
+				if (board.getPlayerTeam(player).getName() == "redteam") {
+					// Player is on the red team and they already own this flag
+					// Do nothing.
+				}
+				if (board.getPlayerTeam(player).getName() == "blueteam") {
+					// Player is on the blue team and they don't own this flag
+					// Capture the flag! (with a count down)
+					// Cancel if the player leaves the location
+					
+				}			
+			}
+			if (flag1colour == "blue") {
+				// Blue team owns this flag
+				if (board.getPlayerTeam(player).getName() == "blueteam") {
+					// Player is on the blue team and they already own this flag
+					// Do nothing.
+				}
+				if (board.getPlayerTeam(player).getName() == "redteam") {
+					// Player is on the red team and they don't own this flag
+					// Capture the flag! (with a count down)
+					// Cancel if the player leaves the location
+					
+				}
+				
+			}
 						
 		}	
 		if (x1-1 == playerlocx && y1 == playerlocy && z1 == playerlocz) {
@@ -449,10 +491,7 @@ public class Main extends JavaPlugin {
 				if (x4+1 == playerlocx && y4 == playerlocy && z4+1 == playerlocz) {
 					// Player is standing on flag 1 centre block
 					
-				}	
-		
-		
-		
+				}
 	    }
 		});
 	}
