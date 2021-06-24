@@ -76,6 +76,21 @@ commands:
    usage: /ctf set spectate
    permission: ctf.set
    permission-message: You don't have the ctf.set permission
+  ctf team red:
+   description: Set team red
+   usage: /ctf team red
+   permission: ctf.join
+   permission-message: You don't have the ctf.join permission
+  ctf team blue:
+   description: Set team blue
+   usage: /ctf team blue
+   permission: ctf.join
+   permission-message: You don't have the ctf.join permission
+  ctf spectate:
+   description: Join spectator team
+   usage: /ctf spectate
+   permission: ctf.join
+   permission-message: You don't have the ctf.join permission
 permissions:
   ctf.help:
    description: Allows help command

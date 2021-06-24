@@ -2,6 +2,7 @@ package renovate.plugins.ctf;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
@@ -135,6 +136,50 @@ public class Main extends JavaPlugin {
 		if (args.length >= 1) {
 		    // Some arguments were provided
 			
+			if (args[0].equalsIgnoreCase("team")) {
+				if (args.length >= 2 && args[1].equalsIgnoreCase("red")) {
+					// Join the red team
+					
+				}
+				if (args.length >= 2 && args[1].equalsIgnoreCase("blue")) {
+					// Join the blue team
+					
+				}
+			}
+			
+			if (args[0].equalsIgnoreCase("spectate")) {
+				// ctf spectate
+				Player player = (Player) sender;
+		        try {	        
+		        sender.sendMessage("§4§l[CTF]§r You are now spectating the game. Type §c/ctf leave§f to exit.");
+		        String stringworld  = config.getString("# world: ");  
+		        var Coordinates = config.getString("# spectate: ");
+		        
+		        World world = getServer().getWorld(stringworld);
+		        
+		        String[] array = Coordinates.split(", ", -1);
+		        
+		        
+		        double x = Double.parseDouble(array[0]);
+		        double y = Double.parseDouble(array[1]);
+		        double z = Double.parseDouble(array[2]);
+		        
+		        // teleport the player to the spectator spawn in the correct world
+		        Location location = new Location(world, x, y, z);
+		        player.teleport(location);
+		        
+		        // Set the player's game mode
+		        player.setGameMode(GameMode.SPECTATOR);	        
+		        
+		        }
+		        catch (Exception e) {
+					sender.sendMessage("§7ERROR: Failed to teleport the player. Have you set the spawn point yet?");
+					sender.sendMessage("§7ERROR: " + e);
+		        }
+			}
+			
+			
+			
 			if (args[0].equalsIgnoreCase("join")) {
 		        // The first argument is "help", therefore "/ctf join"
 				sender.sendMessage("§7Attempting to join CTF..");
@@ -169,6 +214,9 @@ public class Main extends JavaPlugin {
 		        
 		        Location location = new Location(world, x, y, z);
 		        player.teleport(location);
+		        
+		        // Set the player's game mode
+		        player.setGameMode(GameMode.SURVIVAL);
 		        
 		        // Set the difficulty
 		        // Add preference?
@@ -217,6 +265,7 @@ public class Main extends JavaPlugin {
 		        
 		        Location location = new Location(world, x, y, z);
 		        player.teleport(location);
+		        player.setGameMode(GameMode.SURVIVAL);
 		        
 		        }
 		        catch (Exception e) {
@@ -229,9 +278,10 @@ public class Main extends JavaPlugin {
 			
 		    if (args[0].equalsIgnoreCase("help")) {
 		        // The first argument is "help", therefore "/ctf help"
+		    	Player player = (Player) sender;
 				sender.sendMessage("§4§l - Ultimate CTF by Renovate Software - §f");
+				if (player.isOp()) {
 				sender.sendMessage("/ctf §7# get the plugin version");
-				sender.sendMessage("/ctf help §7# this command");
 				sender.sendMessage("/ctf set bluespawn §7# set the blue team's spawn");
 				sender.sendMessage("/ctf set redspawn §7# set the red team's spawn");
 				sender.sendMessage("/ctf set flag<num> §7# set a flag (1-4)");
@@ -239,8 +289,14 @@ public class Main extends JavaPlugin {
 				sender.sendMessage("/ctf set lobby §7# set the lobby");
 				sender.sendMessage("/ctf set spectate §7# set the spectator's spawn");
 				sender.sendMessage("/ctf set serverspawn §7# set the server's spawn");
+				}
+				else {
+					sender.sendMessage("&7You are not a server operator so some commands are hidden.");
+				}
+				sender.sendMessage("/ctf help §7# this command");
 				sender.sendMessage("/ctf join §7# Join a CTF game");
 				sender.sendMessage("/ctf leave §7# Leave CTF game and return to spawn");
+				sender.sendMessage("/ctf team <colour> §7# Join a specific team");
 				return true;
 		    }
 		    
