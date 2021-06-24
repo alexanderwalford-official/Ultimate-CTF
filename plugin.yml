@@ -76,6 +76,36 @@ commands:
    usage: /ctf set spectate
    permission: ctf.set
    permission-message: You don't have the ctf.set permission
+  ctf set kit1_red:
+   description: Set red team's kit 1
+   usage: /ctf set kit1_red
+   permission: ctf.set
+   permission-message: You don't have the ctf.set permission
+  ctf set kit2_red:
+   description: Set red team's kit 2
+   usage: /ctf set kit2_red
+   permission: ctf.set
+   permission-message: You don't have the ctf.set permission
+  ctf set kit3_red:
+   description: Set red team's kit 3
+   usage: /ctf set kit3_red
+   permission: ctf.set
+   permission-message: You don't have the ctf.set permission
+  ctf set kit1_blue:
+   description: Set blue team's kit 1
+   usage: /ctf set kit1_blue
+   permission: ctf.set
+   permission-message: You don't have the ctf.set permission
+  ctf set kit2_blue:
+   description: Set blue team's kit 2
+   usage: /ctf set kit2_blue
+   permission: ctf.set
+   permission-message: You don't have the ctf.set permission
+  ctf set kit3_blue:
+   description: Set blue team's kit 3
+   usage: /ctf set kit3_blue
+   permission: ctf.set
+   permission-message: You don't have the ctf.set permission
   ctf team red:
    description: Set team red
    usage: /ctf team red

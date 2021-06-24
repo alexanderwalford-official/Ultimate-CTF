@@ -9,6 +9,7 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -45,12 +46,8 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {	
 		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Ultimate Capture The Flag by Renovate Software started! \n");	
-		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Settings can be defined via commands or the config.yml file. \n");
-		
-		// Add kit selection with armour stands?
-		// Spawn armour stands at states locations
-		// Handle on right click event
-		
+		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Settings can be defined via commands or the config.yml file. \n");    
+        
 	}
 	
 	@Override
@@ -74,41 +71,123 @@ public class Main extends JavaPlugin {
 	    			
 	    			try
 	    			{
-	    			    Thread.sleep(1000);
+	    				// Add kit selection with armour stands?
+	    				// Spawn armour stands at states locations
+	    				// Handle on right click event /or stand on block
+	    				
+	    				
+	    				String stringworld  = config.getString("# world: ");  
+	    		        var Coordinates1 = config.getString("# blue_kit1: ");
+	    		        var Coordinates2 = config.getString("# blue_kit2: ");
+	    		        var Coordinates3 = config.getString("# blue_kit3: "); 
+	    		        var Coordinates4 = config.getString("# red_kit1: ");
+	    		        var Coordinates5 = config.getString("# red_kit2: ");
+	    		        var Coordinates6 = config.getString("# red_kit3: ");
+	    		        
+	    		        
+	    		        String[] array1 = Coordinates1.split(", ", -1);
+	    		        String[] array2 = Coordinates2.split(", ", -1);
+	    		        String[] array3 = Coordinates3.split(", ", -1);
+	    		        String[] array4 = Coordinates4.split(", ", -1);
+	    		        String[] array5 = Coordinates5.split(", ", -1);
+	    		        String[] array6 = Coordinates6.split(", ", -1);	        
+	    		        
+	    		        World world = getServer().getWorld(stringworld);
+	    		               
+	    		        
+	    		        // teleport the player to the lobby in the correct world
+	    		        double x1 = Double.parseDouble(array1[0]);
+	    		        double y1 = Double.parseDouble(array1[1]);
+	    		        double z1 = Double.parseDouble(array1[2]);
+	    		        
+	    		        double x2 = Double.parseDouble(array2[0]);
+	    		        double y2 = Double.parseDouble(array2[1]);
+	    		        double z2 = Double.parseDouble(array2[2]);
+	    		        
+	    		        double x3 = Double.parseDouble(array3[0]);
+	    		        double y3 = Double.parseDouble(array3[1]);
+	    		        double z3 = Double.parseDouble(array3[2]);
+	    		        
+	    		        double x4 = Double.parseDouble(array4[0]);
+	    		        double y4 = Double.parseDouble(array4[1]);
+	    		        double z4 = Double.parseDouble(array4[2]);
+	    		        
+	    		        double x5 = Double.parseDouble(array5[0]);
+	    		        double y5 = Double.parseDouble(array5[1]);
+	    		        double z5 = Double.parseDouble(array5[2]);
+	    		        
+	    		        double x6 = Double.parseDouble(array6[0]);
+	    		        double y6 = Double.parseDouble(array6[1]);
+	    		        double z6 = Double.parseDouble(array6[2]);
+	    		        
+	    		        Location location1 = new Location(world, x1, y1, z1);
+	    		        Location location2 = new Location(world, x2, y2, z2);
+	    		        Location location3 = new Location(world, x3, y3, z3);
+	    		        Location location4 = new Location(world, x4, y4, z4);
+	    		        Location location5 = new Location(world, x5, y5, z5);
+	    		        Location location6 = new Location(world, x6, y6, z6);
+	    				
+	    		        Player player = (Player) sender;
+	    		        
+	    		        player.getWorld().spawn(location1, ArmorStand.class);
+	    		        player.getWorld().spawn(location2, ArmorStand.class);
+	    		        player.getWorld().spawn(location3, ArmorStand.class);
+	    		        player.getWorld().spawn(location4, ArmorStand.class);
+	    		        player.getWorld().spawn(location5, ArmorStand.class);
+	    		        player.getWorld().spawn(location6, ArmorStand.class);
+	    						
+	    				
+	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
 	    			    sender.sendMessage("§4§l[CTF]§r Starting game in 60 seconds..");
 	    			    Thread.sleep(30000);
+	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
 	    			    sender.sendMessage("§4§l[CTF]§r Starting game in 30 seconds..");
 	    			    Thread.sleep(15000);
+	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
 	    			    sender.sendMessage("§4§l[CTF]§r Starting game in 15 seconds..");
 	    			    Thread.sleep(5000);
+	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
 	    			    sender.sendMessage("§4§l[CTF]§r Starting game in 10 seconds..");
 	    			    // String title, String subtitle, int fadeIn, int stay, int fadeOut.
 	    			    player.sendTitle(ChatColor.AQUA + "10", "Seconds", 1, 10, 1);
 	    			    Thread.sleep(1000);
+	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
 	    			    player.sendTitle(ChatColor.AQUA + "9", "Seconds", 1, 10, 1);
 	    			    Thread.sleep(1000);
+	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
 	    			    player.sendTitle(ChatColor.AQUA + "8", "Seconds", 1, 10, 1);
 	    			    Thread.sleep(1000);
+	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
 	    			    player.sendTitle(ChatColor.AQUA + "7", "Seconds", 1, 10, 1);
 	    			    Thread.sleep(1000);
+	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
 	    			    player.sendTitle(ChatColor.AQUA + "6", "Seconds", 1, 10, 1);
 	    			    Thread.sleep(1000);
+	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
 	    			    player.sendTitle(ChatColor.AQUA + "5", "Seconds", 1, 10, 1);
 	    			    sender.sendMessage("§4§l[CTF]§r Starting game in 5 seconds..");
 	    			    Thread.sleep(1000);
+	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
 	    			    player.sendTitle(ChatColor.AQUA + "4", "Seconds", 1, 10, 1);
 	    			    Thread.sleep(1000);
+	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
 	    			    player.sendTitle(ChatColor.AQUA + "3", "Seconds", 1, 10, 1);
 	    			    Thread.sleep(1000);
+	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
 	    			    player.sendTitle(ChatColor.AQUA + "2", "Seconds", 1, 10, 1);
 	    			    Thread.sleep(1000);
+	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
 	    			    player.sendTitle(ChatColor.AQUA + "1", "Seconds", 1, 10, 1);
 	    			    Thread.sleep(1000);
+	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
 	    			    player.sendTitle(ChatColor.GREEN + "Go!", "Seconds", 1, 10, 1);
 	    			    sender.sendMessage("§4§l[CTF]§r The game has started!");
+	    			    
+	    			    startgame(sender);
 	    			}
 	    			catch(InterruptedException ex)
 	    			{
+	    				sender.sendMessage("§4§l[CTF]§r An error has been detected.");
 	    			    Thread.currentThread().interrupt();
 	    			}
 	    			
@@ -118,9 +197,13 @@ public class Main extends JavaPlugin {
 	}
 	
 	
-	void startgame() {
+	void startgame(CommandSender sender) {
+		Player player = (Player) sender;
 		// Here we will teleport the players to the correct world, then teleport them to the correct spawn
 		// based on their team. A minimum of 2 players is required to play.
+		// Here we can also check for the player's location for if they are stood on a flag to claim it.
+		
+		
 		
 	}
 	
@@ -139,10 +222,12 @@ public class Main extends JavaPlugin {
 			if (args[0].equalsIgnoreCase("team")) {
 				if (args.length >= 2 && args[1].equalsIgnoreCase("red")) {
 					// Join the red team
+					sender.sendMessage("§4§l[CTF]§r You have joined the §cred team &f!");
 					
 				}
 				if (args.length >= 2 && args[1].equalsIgnoreCase("blue")) {
 					// Join the blue team
+					sender.sendMessage("§4§l[CTF]§r You have joined the §9blue team &f!");
 					
 				}
 			}
@@ -289,6 +374,7 @@ public class Main extends JavaPlugin {
 				sender.sendMessage("/ctf set lobby §7# set the lobby");
 				sender.sendMessage("/ctf set spectate §7# set the spectator's spawn");
 				sender.sendMessage("/ctf set serverspawn §7# set the server's spawn");
+				sender.sendMessage("/ctf set kit<num>_<colour> §7# set the kits spawn");
 				}
 				else {
 					sender.sendMessage("&7You are not a server operator so some commands are hidden.");
@@ -303,6 +389,197 @@ public class Main extends JavaPlugin {
 		    if (args[0].equalsIgnoreCase("set")) {
 		        // The first argument is "ctf", therefore "/ctf set"
 		    	sender.sendMessage("[CTF] Usage: /ctf set <param>");
+		    	
+		    	if (args.length >= 2 && args[1].equalsIgnoreCase("kit1_red")) {
+		    		// set the kit 1 location for the red team
+					try {
+					Player player = (Player) sender;
+					Location loc = player.getLocation();
+					int x = loc.getBlockX();
+					int y = loc.getBlockY();
+					int z = loc.getBlockZ();
+					
+					sender.sendMessage("§4§l[CTF]§r You set the red team's kit 1 to: X:" + x + " Y:" + y + " Z:" + z + " !");
+					
+					player.playSound(player.getLocation(), "entity.villager.yes", 3.0F, 0.5F);
+					
+					// We then need to save this to the config.yml file!
+					
+					System.out.print("\n:: red_kit1: " + x + " " + y + "" + z);
+					var corindates = x + ", " + y + ", " + z;
+					
+		    		config.addDefault("# red_kit1: ", corindates);
+		            config.options().copyDefaults(true);
+		            saveConfig();	
+					
+					}
+					catch (Exception e) {
+						Player player = (Player) sender;
+						player.playSound(player.getLocation(), "entity.wolf.growl", 3.0F, 0.5F);
+						sender.sendMessage("[CTF] Something went wrong. Check the console for errors..");
+						System.out.print(e);
+					}
+					return true;  
+		    	}
+		    	
+		    	if (args.length >= 2 && args[1].equalsIgnoreCase("kit2_red")) {
+		    		// set the kit 2 location for the red team
+					try {
+					Player player = (Player) sender;
+					Location loc = player.getLocation();
+					int x = loc.getBlockX();
+					int y = loc.getBlockY();
+					int z = loc.getBlockZ();
+					
+					sender.sendMessage("§4§l[CTF]§r You set the red team's kit 2 to: X:" + x + " Y:" + y + " Z:" + z + " !");
+					
+					player.playSound(player.getLocation(), "entity.villager.yes", 3.0F, 0.5F);
+					
+					// We then need to save this to the config.yml file!
+					
+					System.out.print("\n:: red_kit2: " + x + " " + y + "" + z);
+					var corindates = x + ", " + y + ", " + z;
+					
+		    		config.addDefault("# red_kit2: ", corindates);
+		            config.options().copyDefaults(true);
+		            saveConfig();	
+					
+					}
+					catch (Exception e) {
+						Player player = (Player) sender;
+						player.playSound(player.getLocation(), "entity.wolf.growl", 3.0F, 0.5F);
+						sender.sendMessage("[CTF] Something went wrong. Check the console for errors..");
+						System.out.print(e);
+					}
+					return true;  
+		    	}
+		    	
+		    	if (args.length >= 2 && args[1].equalsIgnoreCase("kit3_red")) {
+		    		// set the kit 3 location for the red team
+					try {
+					Player player = (Player) sender;
+					Location loc = player.getLocation();
+					int x = loc.getBlockX();
+					int y = loc.getBlockY();
+					int z = loc.getBlockZ();
+					
+					sender.sendMessage("§4§l[CTF]§r You set the red team's kit 3 to: X:" + x + " Y:" + y + " Z:" + z + " !");
+					
+					player.playSound(player.getLocation(), "entity.villager.yes", 3.0F, 0.5F);
+					
+					// We then need to save this to the config.yml file!
+					
+					System.out.print("\n:: red_kit3: " + x + " " + y + "" + z);
+					var corindates = x + ", " + y + ", " + z;
+					
+		    		config.addDefault("# red_kit3: ", corindates);
+		            config.options().copyDefaults(true);
+		            saveConfig();	
+					
+					}
+					catch (Exception e) {
+						Player player = (Player) sender;
+						player.playSound(player.getLocation(), "entity.wolf.growl", 3.0F, 0.5F);
+						sender.sendMessage("[CTF] Something went wrong. Check the console for errors..");
+						System.out.print(e);
+					}
+					return true;  
+		    	}
+		    	
+		    	if (args.length >= 2 && args[1].equalsIgnoreCase("kit1_blue")) {
+		    		// set the kit 1 location for the red team
+					try {
+					Player player = (Player) sender;
+					Location loc = player.getLocation();
+					int x = loc.getBlockX();
+					int y = loc.getBlockY();
+					int z = loc.getBlockZ();
+					
+					sender.sendMessage("§4§l[CTF]§r You set the blue team's kit 1 to: X:" + x + " Y:" + y + " Z:" + z + " !");
+					
+					player.playSound(player.getLocation(), "entity.villager.yes", 3.0F, 0.5F);
+					
+					// We then need to save this to the config.yml file!
+					
+					System.out.print("\n:: blue_kit1: " + x + " " + y + "" + z);
+					var corindates = x + ", " + y + ", " + z;
+					
+		    		config.addDefault("# blue_kit1: ", corindates);
+		            config.options().copyDefaults(true);
+		            saveConfig();	
+					
+					}
+					catch (Exception e) {
+						Player player = (Player) sender;
+						player.playSound(player.getLocation(), "entity.wolf.growl", 3.0F, 0.5F);
+						sender.sendMessage("[CTF] Something went wrong. Check the console for errors..");
+						System.out.print(e);
+					}
+					return true;  
+		    	}
+		    	
+		    	if (args.length >= 2 && args[1].equalsIgnoreCase("kit2_blue")) {
+		    		try {
+						Player player = (Player) sender;
+						Location loc = player.getLocation();
+						int x = loc.getBlockX();
+						int y = loc.getBlockY();
+						int z = loc.getBlockZ();
+						
+						sender.sendMessage("§4§l[CTF]§r You set the blue team's kit 2 to: X:" + x + " Y:" + y + " Z:" + z + " !");
+						
+						player.playSound(player.getLocation(), "entity.villager.yes", 3.0F, 0.5F);
+						
+						// We then need to save this to the config.yml file!
+						
+						System.out.print("\n:: blue_kit2: " + x + " " + y + "" + z);
+						var corindates = x + ", " + y + ", " + z;
+						
+			    		config.addDefault("# blue_kit2: ", corindates);
+			            config.options().copyDefaults(true);
+			            saveConfig();	
+						
+						}
+						catch (Exception e) {
+							Player player = (Player) sender;
+							player.playSound(player.getLocation(), "entity.wolf.growl", 3.0F, 0.5F);
+							sender.sendMessage("[CTF] Something went wrong. Check the console for errors..");
+							System.out.print(e);
+						}
+						return true;  
+		    	}
+		    	
+		    	if (args.length >= 2 && args[1].equalsIgnoreCase("kit3_blue")) {
+		    		try {
+						Player player = (Player) sender;
+						Location loc = player.getLocation();
+						int x = loc.getBlockX();
+						int y = loc.getBlockY();
+						int z = loc.getBlockZ();
+						
+						sender.sendMessage("§4§l[CTF]§r You set the blue team's kit 3 to: X:" + x + " Y:" + y + " Z:" + z + " !");
+						
+						player.playSound(player.getLocation(), "entity.villager.yes", 3.0F, 0.5F);
+						
+						// We then need to save this to the config.yml file!
+						
+						System.out.print("\n:: blue_kit3: " + x + " " + y + "" + z);
+						var corindates = x + ", " + y + ", " + z;
+						
+			    		config.addDefault("# blue_kit3: ", corindates);
+			            config.options().copyDefaults(true);
+			            saveConfig();	
+						
+						}
+						catch (Exception e) {
+							Player player = (Player) sender;
+							player.playSound(player.getLocation(), "entity.wolf.growl", 3.0F, 0.5F);
+							sender.sendMessage("[CTF] Something went wrong. Check the console for errors..");
+							System.out.print(e);
+						}
+						return true;  
+		    	}
+		    	
 		    	
 		    	if (args.length >= 2 && args[1].equalsIgnoreCase("world")) {
 		    		Player player = (Player) sender;
