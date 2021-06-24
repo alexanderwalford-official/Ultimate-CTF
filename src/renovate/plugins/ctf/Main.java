@@ -1,6 +1,7 @@
 package renovate.plugins.ctf;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Difficulty;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
@@ -35,11 +36,20 @@ public class Main extends JavaPlugin {
 	FileConfiguration config = getConfig();
 	PluginDescriptionFile pdf = this.getDescription();	
 	
+	// Add team selection with armour stands or signs?
+	// Handle right click event
+	// Add blue and red teams to score board
+	
+	
 	@Override
 	public void onEnable() {	
 		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Ultimate Capture The Flag by Renovate Software started! \n");	
 		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Settings can be defined via commands or the config.yml file. \n");
-
+		
+		// Add kit selection with armour stands?
+		// Spawn armour stands at states locations
+		// Handle on right click event
+		
 	}
 	
 	@Override
@@ -60,13 +70,41 @@ public class Main extends JavaPlugin {
 	        	if (board.getEntries().size() > 2) {
 	    			// More than 2 players have joined, start the count down!
 	    			sender.sendMessage("§4§l[CTF]§r Minimum amount of players detected! Starting count down..");
+	    			
 	    			try
 	    			{
 	    			    Thread.sleep(1000);
+	    			    sender.sendMessage("§4§l[CTF]§r Starting game in 60 seconds..");
+	    			    Thread.sleep(30000);
+	    			    sender.sendMessage("§4§l[CTF]§r Starting game in 30 seconds..");
+	    			    Thread.sleep(15000);
+	    			    sender.sendMessage("§4§l[CTF]§r Starting game in 15 seconds..");
+	    			    Thread.sleep(5000);
+	    			    sender.sendMessage("§4§l[CTF]§r Starting game in 10 seconds..");
 	    			    // String title, String subtitle, int fadeIn, int stay, int fadeOut.
 	    			    player.sendTitle(ChatColor.AQUA + "10", "Seconds", 1, 10, 1);
 	    			    Thread.sleep(1000);
 	    			    player.sendTitle(ChatColor.AQUA + "9", "Seconds", 1, 10, 1);
+	    			    Thread.sleep(1000);
+	    			    player.sendTitle(ChatColor.AQUA + "8", "Seconds", 1, 10, 1);
+	    			    Thread.sleep(1000);
+	    			    player.sendTitle(ChatColor.AQUA + "7", "Seconds", 1, 10, 1);
+	    			    Thread.sleep(1000);
+	    			    player.sendTitle(ChatColor.AQUA + "6", "Seconds", 1, 10, 1);
+	    			    Thread.sleep(1000);
+	    			    player.sendTitle(ChatColor.AQUA + "5", "Seconds", 1, 10, 1);
+	    			    sender.sendMessage("§4§l[CTF]§r Starting game in 5 seconds..");
+	    			    Thread.sleep(1000);
+	    			    player.sendTitle(ChatColor.AQUA + "4", "Seconds", 1, 10, 1);
+	    			    Thread.sleep(1000);
+	    			    player.sendTitle(ChatColor.AQUA + "3", "Seconds", 1, 10, 1);
+	    			    Thread.sleep(1000);
+	    			    player.sendTitle(ChatColor.AQUA + "2", "Seconds", 1, 10, 1);
+	    			    Thread.sleep(1000);
+	    			    player.sendTitle(ChatColor.AQUA + "1", "Seconds", 1, 10, 1);
+	    			    Thread.sleep(1000);
+	    			    player.sendTitle(ChatColor.GREEN + "Go!", "Seconds", 1, 10, 1);
+	    			    sender.sendMessage("§4§l[CTF]§r The game has started!");
 	    			}
 	    			catch(InterruptedException ex)
 	    			{
@@ -107,7 +145,7 @@ public class Main extends JavaPlugin {
 				Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
 				Objective obj = board.registerNewObjective("ServerName", "dummy", ChatColor.RED + "Capture The Flag");
 				obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-				Score onlineName = obj.getScore(ChatColor.GRAY + "Waiting for players..");
+				Score onlineName = obj.getScore(ChatColor.GRAY + "Waiting for more players..");
 				onlineName.setScore(15);
 				player.setScoreboard(board);
 				
@@ -131,6 +169,14 @@ public class Main extends JavaPlugin {
 		        
 		        Location location = new Location(world, x, y, z);
 		        player.teleport(location);
+		        
+		        // Set the difficulty
+		        // Add preference?
+		        Bukkit.getWorld(stringworld).setDifficulty(Difficulty.NORMAL);
+		        
+		        // Set the time
+		        // Add preference?
+		        Bukkit.getWorld(stringworld).setTime(6000);
 		        
 		        }
 		        catch (Exception e) {
