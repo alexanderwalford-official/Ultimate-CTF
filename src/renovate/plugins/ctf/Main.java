@@ -56,6 +56,8 @@ public class Main extends JavaPlugin {
 	}
 	
 	
+	int standspawned = 0;
+	
 	void checklobby(CommandSender sender) {
 		Player player = (Player) sender;
 		Bukkit.getScheduler().runTaskAsynchronously(this, new Runnable() {
@@ -75,7 +77,9 @@ public class Main extends JavaPlugin {
 	    				// Spawn armour stands at states locations
 	    				// Handle on right click event /or stand on block
 	    				
-	    				
+	    				// only spawn the stands if they haven't been spawned yet
+	    				if (standspawned == 0) {
+	    				//spawn new stands
 	    				String stringworld  = config.getString("# world: ");  
 	    		        var Coordinates1 = config.getString("# blue_kit1: ");
 	    		        var Coordinates2 = config.getString("# blue_kit2: ");
@@ -136,6 +140,8 @@ public class Main extends JavaPlugin {
 	    		        player.getWorld().spawn(location5, ArmorStand.class);
 	    		        player.getWorld().spawn(location6, ArmorStand.class);
 	    						
+	    		        standspawned = 1;
+	    				}
 	    				
 	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
 	    			    sender.sendMessage("§4§l[CTF]§r Starting game in 60 seconds..");
@@ -197,15 +203,220 @@ public class Main extends JavaPlugin {
 	}
 	
 	
+	@SuppressWarnings("deprecation")
 	void startgame(CommandSender sender) {
 		Player player = (Player) sender;
 		// Here we will teleport the players to the correct world, then teleport them to the correct spawn
 		// based on their team. A minimum of 2 players is required to play.
 		// Here we can also check for the player's location for if they are stood on a flag to claim it.
+		player.getWorld().setGameRuleValue("keepInventory", "true");
+		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "A game has started. Running required asyncronous threads to enable full game functionality. \n"); 
+		
+		// Remove the score board so that we can make a new one
+		player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+		
+	Bukkit.getScheduler().runTaskAsynchronously(this, new Runnable() {
+			
+	    @Override
+	    public void run() {
+		
+		// Time for async function for position checking
+		String location = player.getLocation().toString();
+			
+		var flag1 = config.getString("# flag1: ");
+		var flag2 = config.getString("# flag2: ");
+		var flag3 = config.getString("# flag3: ");
+		var flag4 = config.getString("# flag4: ");
+		
+        String[] array1 = flag1.split(", ", -1);
+        String[] array2 = flag2.split(", ", -1);
+        String[] array3 = flag3.split(", ", -1);
+        String[] array4 = flag4.split(", ", -1);
+        String[] playerloc = location.split(", ", -1);
+        
+        
+        double x1 = Double.parseDouble(array1[0]);
+        double y1 = Double.parseDouble(array1[1]);
+        double z1 = Double.parseDouble(array1[2]);
+        double x2 = Double.parseDouble(array2[0]);
+        double y2 = Double.parseDouble(array2[1]);
+        double z2 = Double.parseDouble(array2[2]);
+        double x3 = Double.parseDouble(array3[0]);
+        double y3 = Double.parseDouble(array3[1]);
+        double z3 = Double.parseDouble(array3[2]);
+        double x4 = Double.parseDouble(array4[0]);
+        double y4 = Double.parseDouble(array4[1]);
+        double z4 = Double.parseDouble(array4[2]);
+        
+        double playerlocx = Double.parseDouble(playerloc[0]);
+        double playerlocy = Double.parseDouble(playerloc[1]);
+        double playerlocz = Double.parseDouble(playerloc[2]);
+		
+		
+        // flag 1 regions
+        
+		if (x1 == playerlocx && y1 == playerlocy && z1 == playerlocz) {
+			// Player is standing on flag 1 centre block
+			
+		}	
+		if (x1-1 == playerlocx && y1 == playerlocy && z1 == playerlocz) {
+			// Player is standing on flag 1 outer block
+			
+		}
+		if (x1 == playerlocx && y1 == playerlocy && z1-1 == playerlocz) {
+			// Player is standing on flag 1 outer block
+			
+		}
+		if (x1+1 == playerlocx && y1 == playerlocy && z1 == playerlocz) {
+			// Player is standing on flag 1 
+			
+		}
+		if (x1 == playerlocx && y1 == playerlocy && z1+1 == playerlocz) {
+			// Player is standing on flag 1 
+			
+		}
+		if (x1-1 == playerlocx && y1 == playerlocy && z1+1 == playerlocz) {
+			// Player is standing on flag 1 
+			
+		}
+		if (x1-1 == playerlocx && y1 == playerlocy && z1-1 == playerlocz) {
+			// Player is standing on flag 1 centre block
+			
+		}
+		if (x1+1 == playerlocx && y1 == playerlocy && z1-1 == playerlocz) {
+			// Player is standing on flag 1 centre block
+			
+		}
+		if (x1+1 == playerlocx && y1 == playerlocy && z1+1 == playerlocz) {
+			// Player is standing on flag 1 centre block
+			
+		}
+		
+		
+		// flag 2 regions
+        
+				if (x2 == playerlocx && y2 == playerlocy && z2 == playerlocz) {
+					// Player is standing on flag 1 centre block
+					
+				}	
+				if (x2-1 == playerlocx && y2 == playerlocy && z2 == playerlocz) {
+					// Player is standing on flag 1 outer block
+					
+				}
+				if (x2 == playerlocx && y2 == playerlocy && z2-1 == playerlocz) {
+					// Player is standing on flag 1 outer block
+					
+				}
+				if (x2+1 == playerlocx && y2 == playerlocy && z2 == playerlocz) {
+					// Player is standing on flag 1 
+					
+				}
+				if (x2 == playerlocx && y2 == playerlocy && z2+1 == playerlocz) {
+					// Player is standing on flag 1 
+					
+				}
+				if (x2-1 == playerlocx && y2 == playerlocy && z2+1 == playerlocz) {
+					// Player is standing on flag 1 
+					
+				}
+				if (x2-1 == playerlocx && y2 == playerlocy && z2-1 == playerlocz) {
+					// Player is standing on flag 1 centre block
+					
+				}
+				if (x2+1 == playerlocx && y2 == playerlocy && z2-1 == playerlocz) {
+					// Player is standing on flag 1 centre block
+					
+				}
+				if (x2+1 == playerlocx && y2 == playerlocy && z2+1 == playerlocz) {
+					// Player is standing on flag 1 centre block
+					
+				}
+		
+				// flag 3 regions
+		        
+				if (x3 == playerlocx && y3 == playerlocy && z3 == playerlocz) {
+					// Player is standing on flag 1 centre block
+					
+				}	
+				if (x3-1 == playerlocx && y3 == playerlocy && z3 == playerlocz) {
+					// Player is standing on flag 1 outer block
+					
+				}
+				if (x3 == playerlocx && y3 == playerlocy && z3-1 == playerlocz) {
+					// Player is standing on flag 1 outer block
+					
+				}
+				if (x3+1 == playerlocx && y3 == playerlocy && z3 == playerlocz) {
+					// Player is standing on flag 1 
+					
+				}
+				if (x3 == playerlocx && y3 == playerlocy && z3+1 == playerlocz) {
+					// Player is standing on flag 1 
+					
+				}
+				if (x3-1 == playerlocx && y3 == playerlocy && z3+1 == playerlocz) {
+					// Player is standing on flag 1 
+					
+				}
+				if (x3-1 == playerlocx && y3 == playerlocy && z3-1 == playerlocz) {
+					// Player is standing on flag 1 centre block
+					
+				}
+				if (x3+1 == playerlocx && y3 == playerlocy && z3-1 == playerlocz) {
+					// Player is standing on flag 1 centre block
+					
+				}
+				if (x3+1 == playerlocx && y3 == playerlocy && z3+1 == playerlocz) {
+					// Player is standing on flag 1 centre block
+					
+				}
+				
+				
+				// flag 4 regions
+		        
+				if (x4 == playerlocx && y4 == playerlocy && z4 == playerlocz) {
+					// Player is standing on flag 1 centre block
+					
+				}	
+				if (x4-1 == playerlocx && y4 == playerlocy && z4 == playerlocz) {
+					// Player is standing on flag 1 outer block
+					
+				}
+				if (x4 == playerlocx && y4 == playerlocy && z4-1 == playerlocz) {
+					// Player is standing on flag 1 outer block
+					
+				}
+				if (x4+1 == playerlocx && y4 == playerlocy && z4 == playerlocz) {
+					// Player is standing on flag 1 
+					
+				}
+				if (x4 == playerlocx && y4 == playerlocy && z4+1 == playerlocz) {
+					// Player is standing on flag 1 
+					
+				}
+				if (x4-1 == playerlocx && y4 == playerlocy && z4+1 == playerlocz) {
+					// Player is standing on flag 1 
+					
+				}
+				if (x4-1 == playerlocx && y4 == playerlocy && z4-1 == playerlocz) {
+					// Player is standing on flag 1 centre block
+					
+				}
+				if (x4+1 == playerlocx && y4 == playerlocy && z4-1 == playerlocz) {
+					// Player is standing on flag 1 centre block
+					
+				}
+				if (x4+1 == playerlocx && y4 == playerlocy && z4+1 == playerlocz) {
+					// Player is standing on flag 1 centre block
+					
+				}	
 		
 		
 		
+	    }
+		});
 	}
+				
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
