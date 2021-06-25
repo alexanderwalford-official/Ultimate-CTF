@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -257,7 +258,7 @@ public class Main extends JavaPlugin {
 	    @Override
 	    public void run() {
 		
-		// Time for async function for position checking
+		// Required Variables
 		String location = player.getLocation().toString();
 			
 		var flag1 = config.getString("# flag1: ");
@@ -287,10 +288,60 @@ public class Main extends JavaPlugin {
         double playerlocx = Double.parseDouble(playerloc[0]);
         double playerlocy = Double.parseDouble(playerloc[1]);
         double playerlocz = Double.parseDouble(playerloc[2]);
+        
+        String world  = config.getString("# world: ");         
 		
 		
         // Add points to team if a flag belongs to them every second
         
+        if (flag1colour == "redteam") {
+        	// + 1 point to red team
+        	try {
+				Thread.sleep(1000);
+				// Add point to team here
+				
+				
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        if (flag1colour == "blueteam") {
+        	// + 1 point to blue team
+        	try {
+				Thread.sleep(1000);
+				// Add point to team here
+				
+				
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        if (flag2colour == "redteam") {
+        	// + 1 point
+        	
+        }
+        if (flag2colour == "blueteam") {
+        	// + 1 point
+        	
+        }
+        if (flag3colour == "redteam") {
+        	// + 1 point
+        	
+        }
+        if (flag3colour == "blueteam") {
+        	// + 1 point
+        	
+        }
+        if (flag4colour == "redteam") {
+        	// + 1 point
+        	
+        }
+        if (flag4colour == "blueteam") {
+        	// + 1 point
+        	
+        }
         
         
         
@@ -305,10 +356,105 @@ public class Main extends JavaPlugin {
 				// Nobody has captured the point yet
 				if (board.getPlayerTeam(player).getName() == "redteam") {
 					// Capture the flag as the red team!
+					// All 9 block locations that need to be changed to the team's colour
+
+					try {
+						Location loc1 = new Location(Bukkit.getWorld(world), x1, y1-1, z1);
+						loc1.getBlock().setType(Material.RED_WOOL);
+						player.playSound(player.getLocation(), "block.wool.break", 3.0F, 0.5F);
+						Thread.sleep(1000);
+						Location loc2 = new Location(Bukkit.getWorld(world), x1+1, y1-1, z1);
+						loc2.getBlock().setType(Material.RED_WOOL);
+						player.playSound(player.getLocation(), "block.wool.break", 3.0F, 0.5F);
+						Thread.sleep(1000);
+						Location loc3 = new Location(Bukkit.getWorld(world), x1, y1-1, z1+1);
+						loc3.getBlock().setType(Material.RED_WOOL);
+						player.playSound(player.getLocation(), "block.wool.break", 3.0F, 0.5F);
+						Thread.sleep(1000);
+						Location loc4 = new Location(Bukkit.getWorld(world), x1-1, y1-1, z1);
+						loc4.getBlock().setType(Material.RED_WOOL);
+						player.playSound(player.getLocation(), "block.wool.break", 3.0F, 0.5F);
+						Thread.sleep(1000);
+						Location loc5 = new Location(Bukkit.getWorld(world), x1, y1-1, z1-1);
+						loc5.getBlock().setType(Material.RED_WOOL);
+						player.playSound(player.getLocation(), "block.wool.break", 3.0F, 0.5F);
+						Thread.sleep(1000);
+						Location loc6 = new Location(Bukkit.getWorld(world), x1-1, y1-1, z1-1);
+						loc6.getBlock().setType(Material.RED_WOOL);
+						player.playSound(player.getLocation(), "block.wool.break", 3.0F, 0.5F);
+						Thread.sleep(1000);
+						Location loc7 = new Location(Bukkit.getWorld(world), x1+1, y1-1, z1+1);
+						loc7.getBlock().setType(Material.RED_WOOL);
+						player.playSound(player.getLocation(), "block.wool.break", 3.0F, 0.5F);
+						Thread.sleep(1000);
+						Location loc8 = new Location(Bukkit.getWorld(world), x1-1, y1-1, z1+1);
+						loc8.getBlock().setType(Material.RED_WOOL);
+						player.playSound(player.getLocation(), "block.wool.break", 3.0F, 0.5F);
+						Thread.sleep(1000);
+						Location loc9 = new Location(Bukkit.getWorld(world), x1+1, y1-1, z1-1);
+						loc9.getBlock().setType(Material.RED_WOOL);
+						player.playSound(player.getLocation(), "entity.player.levelup", 3.0F, 0.5F);
+						
+						// Broadcast the capture
+						Bukkit.broadcastMessage("The red team have captured flag 1 !");
+						
+						// set the flag's team
+						flag1colour = "redteam";
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
 				}
 				if (board.getPlayerTeam(player).getName() == "blueteam") {
 					// Capture the flag as the blue team!
+					// All 9 block locations that need to be changed to the team's colour
+					try {
+						Location loc1 = new Location(Bukkit.getWorld(world), x1, y1-1, z1);
+						loc1.getBlock().setType(Material.BLUE_WOOL);
+						player.playSound(player.getLocation(), "block.wool.break", 3.0F, 0.5F);
+						Thread.sleep(1000);
+						Location loc2 = new Location(Bukkit.getWorld(world), x1+1, y1-1, z1);
+						loc2.getBlock().setType(Material.BLUE_WOOL);
+						player.playSound(player.getLocation(), "block.wool.break", 3.0F, 0.5F);
+						Thread.sleep(1000);
+						Location loc3 = new Location(Bukkit.getWorld(world), x1, y1-1, z1+1);
+						loc3.getBlock().setType(Material.BLUE_WOOL);
+						player.playSound(player.getLocation(), "block.wool.break", 3.0F, 0.5F);
+						Thread.sleep(1000);
+						Location loc4 = new Location(Bukkit.getWorld(world), x1-1, y1-1, z1);
+						loc4.getBlock().setType(Material.BLUE_WOOL);
+						player.playSound(player.getLocation(), "block.wool.break", 3.0F, 0.5F);
+						Thread.sleep(1000);
+						Location loc5 = new Location(Bukkit.getWorld(world), x1, y1-1, z1-1);
+						loc5.getBlock().setType(Material.BLUE_WOOL);
+						player.playSound(player.getLocation(), "block.wool.break", 3.0F, 0.5F);
+						Thread.sleep(1000);
+						Location loc6 = new Location(Bukkit.getWorld(world), x1-1, y1-1, z1-1);
+						loc6.getBlock().setType(Material.BLUE_WOOL);
+						player.playSound(player.getLocation(), "block.wool.break", 3.0F, 0.5F);
+						Thread.sleep(1000);
+						Location loc7 = new Location(Bukkit.getWorld(world), x1+1, y1-1, z1+1);
+						loc7.getBlock().setType(Material.BLUE_WOOL);
+						player.playSound(player.getLocation(), "block.wool.break", 3.0F, 0.5F);
+						Thread.sleep(1000);
+						Location loc8 = new Location(Bukkit.getWorld(world), x1-1, y1-1, z1+1);
+						loc8.getBlock().setType(Material.BLUE_WOOL);
+						player.playSound(player.getLocation(), "block.wool.break", 3.0F, 0.5F);
+						Thread.sleep(1000);
+						Location loc9 = new Location(Bukkit.getWorld(world), x1+1, y1-1, z1-1);
+						loc9.getBlock().setType(Material.BLUE_WOOL);
+						player.playSound(player.getLocation(), "entity.player.levelup", 3.0F, 0.5F);
+						
+						// Broadcast the capture
+						Bukkit.broadcastMessage("The blue team have captured flag 1 !");
+						
+						// set the flag's team
+						flag1colour = "blueteam";
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
 				}
 			}
