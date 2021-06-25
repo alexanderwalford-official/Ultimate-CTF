@@ -14,6 +14,7 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
@@ -31,6 +32,11 @@ import java.io.*;
 
 public class Main extends JavaPlugin {
 	
+	// Renovate Software LTD 2021
+	// Ultimate Capture The Flag Plugin
+	// Version 1.0
+	
+	
 	public static final String TEXT_RESET = "\u001B[0m";
 	public static final String TEXT_BLACK = "\u001B[30m";
 	public static final String TEXT_RED = "\u001B[31m";
@@ -42,7 +48,6 @@ public class Main extends JavaPlugin {
 	public static final String TEXT_WHITE = "\u001B[37m";
 	FileConfiguration config = getConfig();
 	PluginDescriptionFile pdf = this.getDescription();	
-	
 	
 	@Override
 	public void onEnable() {	
@@ -64,8 +69,7 @@ public class Main extends JavaPlugin {
 			// Player has full permissions due to being a server operator
 			sender.sendMessage("§4§l[CTF]§r You are running version §c" + pdf.getVersion() + "§r of Ultimate Capture The Flag. §7You can see this message as you are a server operator.");
 		}
-	}
-	
+	}	
 	
 	void kitselection (CommandSender sender) {
 		
@@ -126,24 +130,62 @@ public class Main extends JavaPlugin {
 		Bukkit.getScheduler().runTaskAsynchronously(this, new Runnable() {
 	        @Override
 	        public void run() { // Is this looped? Testing w/ 2 or more players required
-	        	// Implement 
+	        	try {
 	        	
 	        	// Blue team spawn
 	        	
 	        	if (playerlocx == x1 && playerlocy == y1 && playerlocz == z1) {
 	        		// Kit 1
-	        		player.getInventory().clear();
-	        		
+	        		try {
+	        			sender.sendMessage("§4§l[CTF]§r Kit 1 selected!");
+		        		player.getInventory().clear();
+		        		player.getInventory().addItem(new ItemStack(Material.IRON_AXE, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 10));
+		        		player.getInventory().addItem(new ItemStack(Material.LEATHER_HELMET, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.IRON_CHESTPLATE, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.IRON_LEGGINGS, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.LEATHER_BOOTS, 1));
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 	        	}
 	        	
 	        	if (playerlocx == x2 && playerlocy == y2 && playerlocz == z2) {
 	        		// Kit 2
-	        		
+	        		try {
+	        			sender.sendMessage("§4§l[CTF]§r Kit 2 selected!");
+		        		player.getInventory().clear();
+		        		player.getInventory().addItem(new ItemStack(Material.DIAMOND_AXE, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 15));
+		        		player.getInventory().addItem(new ItemStack(Material.LEATHER_HELMET, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.LEATHER_CHESTPLATE, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.LEATHER_LEGGINGS, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.LEATHER_BOOTS, 1));
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 	        	}
 	        	
 	        	if (playerlocx == x3 && playerlocy == y3 && playerlocz == z3) {
 	        		// Kit 3
-	        		
+	        		try {
+	        			sender.sendMessage("§4§l[CTF]§r Kit 3 selected!");
+		        		player.getInventory().clear();
+		        		player.getInventory().addItem(new ItemStack(Material.STONE_AXE, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 10));
+		        		player.getInventory().addItem(new ItemStack(Material.IRON_HELMET, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.IRON_CHESTPLATE, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.IRON_LEGGINGS, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.IRON_BOOTS, 1));
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 	        	}
 	        	
 	        	
@@ -151,21 +193,66 @@ public class Main extends JavaPlugin {
 	        	
 	        	if (playerlocx == x4 && playerlocy == y4 && playerlocz == z4) {
 	        		// Kit 1
-	        		
+		        		try {
+		        			sender.sendMessage("§4§l[CTF]§r Kit 1 selected!");
+			        		player.getInventory().clear();
+			        		player.getInventory().addItem(new ItemStack(Material.IRON_AXE, 1));
+			        		player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 10));
+			        		player.getInventory().addItem(new ItemStack(Material.LEATHER_HELMET, 1));
+			        		player.getInventory().addItem(new ItemStack(Material.IRON_CHESTPLATE, 1));
+			        		player.getInventory().addItem(new ItemStack(Material.IRON_LEGGINGS, 1));
+			        		player.getInventory().addItem(new ItemStack(Material.LEATHER_BOOTS, 1));
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 	        	}
 	        	
 	        	if (playerlocx == x5 && playerlocy == y5 && playerlocz == z5) {
 	        		// Kit 2
-	        		
+	        		try {
+	        			sender.sendMessage("§4§l[CTF]§r Kit 2 selected!");
+		        		player.getInventory().clear();
+		        		player.getInventory().addItem(new ItemStack(Material.DIAMOND_AXE, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 15));
+		        		player.getInventory().addItem(new ItemStack(Material.LEATHER_HELMET, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.LEATHER_CHESTPLATE, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.LEATHER_LEGGINGS, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.LEATHER_BOOTS, 1));
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 	        	}
 	        	
 	        	if (playerlocx == x6 && playerlocy == y6 && playerlocz == z6) {
 	        		// Kit 3
-	        		
+	        		try {
+	        			sender.sendMessage("§4§l[CTF]§r Kit 3 selected!");
+		        		player.getInventory().clear();
+		        		player.getInventory().addItem(new ItemStack(Material.STONE_AXE, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 10));
+		        		player.getInventory().addItem(new ItemStack(Material.IRON_HELMET, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.IRON_CHESTPLATE, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.IRON_LEGGINGS, 1));
+		        		player.getInventory().addItem(new ItemStack(Material.IRON_BOOTS, 1));
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 	        	}
-	        	
-	        	
-	        	
+
+	        		
+	        		run();  
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        		
 	        }
 		});
 	}
@@ -186,6 +273,7 @@ public class Main extends JavaPlugin {
 		Bukkit.getScheduler().runTaskAsynchronously(this, new Runnable() {
 	        @Override
 	        public void run() { // Is this looped? Testing w/ 2 or more players required
+	        	try {
 	        	// Check for minimum of 2 players.
 	    		// Implement a level system?
 	    		// Some methods may need to be looped for specific asynchronous checks?
@@ -342,6 +430,13 @@ public class Main extends JavaPlugin {
 	    			}
 	    			
 	    		}
+	        	
+	        	run();  
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	        }
 	    });
 	}
@@ -375,6 +470,7 @@ public class Main extends JavaPlugin {
 			
 	    @Override
 	    public void run() {
+	    try {
 		
 		// Required Variables
 		String location = player.getLocation().toString();
@@ -644,6 +740,12 @@ public class Main extends JavaPlugin {
 					// Player is standing on flag 1 centre block
 					flag4controller (sender, world, x4, y4, z4);
 				}
+        		run();  
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	    }
 		});
 	}
