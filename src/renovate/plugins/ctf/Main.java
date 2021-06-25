@@ -572,11 +572,72 @@ public class Main extends JavaPlugin {
         
         if (redteampoints == maxpoints) {
         	// Red team wins!
+        	
         	Bukkit.broadcastMessage("The red team have won CTF!");
+        	Thread.sleep(1000);
+			
+	        try {	   
+	       
+	        player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());	
+	        	
+	        String stringworld  = config.getString("# servworld: ");  
+	        var Coordinates = config.getString("# servspawn: ");
+	        
+	        World worldnew = getServer().getWorld(stringworld);
+	        
+	        String[] array = Coordinates.split(", ", -1);
+	        
+	        // teleport the player to the lobby in the correct world
+	        double x = Double.parseDouble(array[0]);
+	        double y = Double.parseDouble(array[1]);
+	        double z = Double.parseDouble(array[2]);
+	        
+	        Location locationspawn = new Location(worldnew, x, y, z);
+	        player.teleport(locationspawn);
+	        player.setGameMode(GameMode.SURVIVAL);
+	        
+			player.playSound(player.getLocation(), "entity.wolf.growl", 3.0F, 0.5F);
+			sender.sendMessage("§4§l[CTF]§r You left the game. Returning to spawn..");
+	        
+	        }
+	        catch (Exception e) {
+				sender.sendMessage("§7ERROR: Failed to teleport the player. Have you set the spawn point yet?");
+				sender.sendMessage("§7ERROR: " + e);
+	        }
         }
         if (blueteampoints == maxpoints) {
         	// Blue team wins!
         	Bukkit.broadcastMessage("The blue team have won CTF!");
+Thread.sleep(1000);
+			
+	        try {	   
+	       
+	        player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());	
+	        	
+	        String stringworld  = config.getString("# servworld: ");  
+	        var Coordinates = config.getString("# servspawn: ");
+	        
+	        World worldnew = getServer().getWorld(stringworld);
+	        
+	        String[] array = Coordinates.split(", ", -1);
+	        
+	        // teleport the player to the lobby in the correct world
+	        double x = Double.parseDouble(array[0]);
+	        double y = Double.parseDouble(array[1]);
+	        double z = Double.parseDouble(array[2]);
+	        
+	        Location locationspawn = new Location(worldnew, x, y, z);
+	        player.teleport(locationspawn);
+	        player.setGameMode(GameMode.SURVIVAL);
+	        
+			player.playSound(player.getLocation(), "entity.wolf.growl", 3.0F, 0.5F);
+			sender.sendMessage("§4§l[CTF]§r You left the game. Returning to spawn..");
+	        
+	        }
+	        catch (Exception e) {
+				sender.sendMessage("§7ERROR: Failed to teleport the player. Have you set the spawn point yet?");
+				sender.sendMessage("§7ERROR: " + e);
+	        }
         }
         
         
