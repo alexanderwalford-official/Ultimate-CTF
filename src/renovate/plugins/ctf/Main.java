@@ -120,8 +120,6 @@ public class Main extends JavaPlugin {
         double x6 = Double.parseDouble(array6[0]);
         double y6 = Double.parseDouble(array6[1]);
         double z6 = Double.parseDouble(array6[2]);
-        
-        World world = getServer().getWorld(stringworld);
 		
 		
 		// Detect if player is standing on block for kit selection
@@ -244,10 +242,9 @@ public class Main extends JavaPlugin {
 						e.printStackTrace();
 					}
 	        	}
-
 	        		
-	        		run();  
-					Thread.sleep(1000);
+				Thread.sleep(1000);
+				run();
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -312,7 +309,7 @@ public class Main extends JavaPlugin {
 	    				// only spawn the stands if they haven't been spawned yet
 	    				if (standspawned == 0) {
 	    				//spawn new stands
-	    				String stringworld  = config.getString("# world: ");  
+	    				String stringworld = config.getString("# world: ");  
 	    		        var Coordinates1 = config.getString("# blue_kit1: ");
 	    		        var Coordinates2 = config.getString("# blue_kit2: ");
 	    		        var Coordinates3 = config.getString("# blue_kit3: "); 
@@ -429,10 +426,10 @@ public class Main extends JavaPlugin {
 	    			    Thread.currentThread().interrupt();
 	    			}
 	    			
-	    		}
-	        	
-	        	run();  
+	    		}      	
+	        	  
 				Thread.sleep(1000);
+				run();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -608,7 +605,7 @@ public class Main extends JavaPlugin {
         if (blueteampoints == maxpoints) {
         	// Blue team wins!
         	Bukkit.broadcastMessage("The blue team have won CTF!");
-Thread.sleep(1000);
+        	Thread.sleep(1000);
 			
 	        try {	   
 	       
@@ -801,8 +798,9 @@ Thread.sleep(1000);
 					// Player is standing on flag 1 centre block
 					flag4controller (sender, world, x4, y4, z4);
 				}
-        		run();  
+        		  
 				Thread.sleep(1000);
+				run();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
