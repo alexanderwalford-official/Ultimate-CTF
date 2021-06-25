@@ -316,6 +316,7 @@ public class Main extends JavaPlugin {
 	    		        var Coordinates4 = config.getString("# red_kit1: ");
 	    		        var Coordinates5 = config.getString("# red_kit2: ");
 	    		        var Coordinates6 = config.getString("# red_kit3: ");
+
 	    		        
 	    		        
 	    		        String[] array1 = Coordinates1.split(", ", -1);
@@ -323,7 +324,8 @@ public class Main extends JavaPlugin {
 	    		        String[] array3 = Coordinates3.split(", ", -1);
 	    		        String[] array4 = Coordinates4.split(", ", -1);
 	    		        String[] array5 = Coordinates5.split(", ", -1);
-	    		        String[] array6 = Coordinates6.split(", ", -1);	        
+	    		        String[] array6 = Coordinates6.split(", ", -1);	     
+
 	    		        
 	    		        World world = getServer().getWorld(stringworld);
 	    		               
@@ -353,12 +355,15 @@ public class Main extends JavaPlugin {
 	    		        double y6 = Double.parseDouble(array6[1]);
 	    		        double z6 = Double.parseDouble(array6[2]);
 	    		        
+
+	    		        
 	    		        Location location1 = new Location(world, x1, y1, z1);
 	    		        Location location2 = new Location(world, x2, y2, z2);
 	    		        Location location3 = new Location(world, x3, y3, z3);
 	    		        Location location4 = new Location(world, x4, y4, z4);
 	    		        Location location5 = new Location(world, x5, y5, z5);
 	    		        Location location6 = new Location(world, x6, y6, z6);
+
 	    				
 	    		        Player player = (Player) sender;
 	    		        
@@ -444,7 +449,27 @@ public class Main extends JavaPlugin {
 	String flag1colour = "white"; // white by default (not claimed)
 	String flag2colour = "white"; 
 	String flag3colour = "white";
-	String flag4colour = "white"; 
+	String flag4colour = "white";
+	String stringworld = config.getString("# world: ");  
+	World world = getServer().getWorld(stringworld);
+	
+	
+    String Coordinates7 = config.getString("# redplayerspawn: ");
+    String Coordinates8 = config.getString("# blueplayerspawn: ");
+	
+    String[] array7 = Coordinates7.split(", ", -1);
+    String[] array8 = Coordinates8.split(", ", -1);	
+	
+    double x7 = Double.parseDouble(array7[0]);
+    double y7 = Double.parseDouble(array7[1]);
+    double z7 = Double.parseDouble(array7[2]);
+    
+    double x8 = Double.parseDouble(array8[0]);
+    double y8 = Double.parseDouble(array8[1]);
+    double z8 = Double.parseDouble(array8[2]);
+	
+    Location location7 = new Location(world, x7, y7, z7);
+    Location location8 = new Location(world, x8, y8, z8);
 	
 	
 	@SuppressWarnings("deprecation")
@@ -458,7 +483,19 @@ public class Main extends JavaPlugin {
 		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "A game has started. Running required asyncronous threads to enable full game functionality. \n"); 
 		
 		// Run the kit selection function 
-		kitselection(sender);	
+		kitselection(sender);
+		
+		if (board.getPlayerTeam(player).getName() == "redteam") {
+			// Player is on the red team!
+			// Teleport them to the red spawn
+			player.teleport(location7);
+		}
+		if (board.getPlayerTeam(player).getName() == "blueteam") {
+			// Player is on the red team!
+			// Teleport them to the blue spawn
+			player.teleport(location8);		
+		}
+		
 		
 		// Remove the score board so that we can make a new one
 		player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
