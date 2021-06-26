@@ -75,16 +75,14 @@ public class Main extends JavaPlugin {
 		
 		Player player = (Player) sender;
 		String location = player.getLocation().toString();
-		
-		String stringworld  = config.getString("# world: ");  
+		 
         var Coordinates1 = config.getString("# blue_kit1: ");
         var Coordinates2 = config.getString("# blue_kit2: ");
         var Coordinates3 = config.getString("# blue_kit3: "); 
         var Coordinates4 = config.getString("# red_kit1: ");
         var Coordinates5 = config.getString("# red_kit2: ");
         var Coordinates6 = config.getString("# red_kit3: ");
-        String[] playerloc = location.split(", ", -1); 
-        
+        String[] playerloc = location.split(", ", -1);  
         
         String[] array1 = Coordinates1.split(", ", -1);
         String[] array2 = Coordinates2.split(", ", -1);
@@ -256,6 +254,7 @@ public class Main extends JavaPlugin {
 	
 	
 	int standspawned = 0;
+	int playersjoin = 0;
 	
 	void checklobby(CommandSender sender) {
 		
@@ -263,45 +262,30 @@ public class Main extends JavaPlugin {
 		Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
 		Player player = (Player) sender;
 		
-		// Effect the player with saturation that lasts forever so that they don't starve
-		player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 99999, 100));
+		// Effect the player with saturation that lasts 50 seconds so that they don't starve
+		player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 50, 100));
 		
 		// Asynchronous function
 		Bukkit.getScheduler().runTaskAsynchronously(this, new Runnable() {
 	        @Override
 	        public void run() { // Is this looped? Testing w/ 2 or more players required
 	        	try {
+	        	
 	        	// Check for minimum of 2 players.
 	    		// Implement a level system?
 	    		// Some methods may need to be looped for specific asynchronous checks?
-	        	if (board.getEntries().size() > 2) {
-	        		Team team = board.registerNewTeam("redteam");
-	        		Team team2 = board.registerNewTeam("blueteam");
+	        	
+	        	if (playersjoin > 1) {
 	        		
 	        		// Remove the saturation so that they can starve
-	        		player.removePotionEffect(PotionEffectType.SATURATION);
+	        		//player.removePotionEffect(PotionEffectType.SATURATION);
 	        		
 	    			// More than 2 players have joined, start the count down!
-	    			sender.sendMessage("§4§l[CTF]§r Minimum amount of players detected! Starting count down..");
-	    			
-	    			// Team balancing
-	    			if (team.getEntries().size() < team2.getEntries().size()) {
-	    				team.addPlayer(player); // join red team		
-	    				team2.removePlayer(player); // remove from other team in case of already selecting team
-	    				sender.sendMessage("§4§l[CTF]§r To balance the game, you have been moved to the red team.");
-	    			}
-	    			
-	    			if (team.getEntries().size() > team2.getEntries().size()) {
-	    				team.removePlayer(player); // remove from other team in case of already selecting team
-	    				team2.addPlayer(player); // join blue team		
-	    				sender.sendMessage("§4§l[CTF]§r To balance the game, you have been moved to the blue team.");
-	    			}
-	    			
-	    			// Disable friendly fire
-	    			team.setAllowFriendlyFire(false);	    					
-	    			
+	    			sender.sendMessage("§4§l[CTF]§r Minimum amount of players detected! Starting count down..");				    			
+	    				        									
 	    			try
 	    			{
+	    				try {
 	    				// Add kit selection with armour stands?
 	    				// Spawn armour stands at states locations
 	    				// Handle on right click event /or stand on block
@@ -316,8 +300,6 @@ public class Main extends JavaPlugin {
 	    		        var Coordinates4 = config.getString("# red_kit1: ");
 	    		        var Coordinates5 = config.getString("# red_kit2: ");
 	    		        var Coordinates6 = config.getString("# red_kit3: ");
-
-	    		        
 	    		        
 	    		        String[] array1 = Coordinates1.split(", ", -1);
 	    		        String[] array2 = Coordinates2.split(", ", -1);
@@ -326,10 +308,8 @@ public class Main extends JavaPlugin {
 	    		        String[] array5 = Coordinates5.split(", ", -1);
 	    		        String[] array6 = Coordinates6.split(", ", -1);	     
 
-	    		        
 	    		        World world = getServer().getWorld(stringworld);
-	    		               
-	    		        
+	    		               	    		        
 	    		        // teleport the player to the lobby in the correct world
 	    		        double x1 = Double.parseDouble(array1[0]);
 	    		        double y1 = Double.parseDouble(array1[1]);
@@ -354,17 +334,14 @@ public class Main extends JavaPlugin {
 	    		        double x6 = Double.parseDouble(array6[0]);
 	    		        double y6 = Double.parseDouble(array6[1]);
 	    		        double z6 = Double.parseDouble(array6[2]);
-	    		        
-
-	    		        
+	    		        	        
 	    		        Location location1 = new Location(world, x1, y1, z1);
 	    		        Location location2 = new Location(world, x2, y2, z2);
 	    		        Location location3 = new Location(world, x3, y3, z3);
 	    		        Location location4 = new Location(world, x4, y4, z4);
 	    		        Location location5 = new Location(world, x5, y5, z5);
 	    		        Location location6 = new Location(world, x6, y6, z6);
-
-	    				
+				
 	    		        Player player = (Player) sender;
 	    		        
 	    		        player.getWorld().spawn(location1, ArmorStand.class);
@@ -373,8 +350,11 @@ public class Main extends JavaPlugin {
 	    		        player.getWorld().spawn(location4, ArmorStand.class);
 	    		        player.getWorld().spawn(location5, ArmorStand.class);
 	    		        player.getWorld().spawn(location6, ArmorStand.class);
-	    						
-	    		        standspawned = 1;
+	    			    
+	    		        standspawned = 1;  				
+	    				}
+	    				} catch (Exception e) {
+	    					System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Could not spawn the armour stands! \n"); 
 	    				}
 	    				
 	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
@@ -409,18 +389,22 @@ public class Main extends JavaPlugin {
 	    			    Thread.sleep(1000);
 	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
 	    			    player.sendTitle(ChatColor.AQUA + "4", "Seconds", 1, 10, 1);
+	    			    sender.sendMessage("§4§l[CTF]§r Starting game in 4 seconds..");
 	    			    Thread.sleep(1000);
 	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
 	    			    player.sendTitle(ChatColor.AQUA + "3", "Seconds", 1, 10, 1);
+	    			    sender.sendMessage("§4§l[CTF]§r Starting game in 3 seconds..");
 	    			    Thread.sleep(1000);
 	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
 	    			    player.sendTitle(ChatColor.AQUA + "2", "Seconds", 1, 10, 1);
+	    			    sender.sendMessage("§4§l[CTF]§r Starting game in 2 seconds..");
 	    			    Thread.sleep(1000);
 	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
 	    			    player.sendTitle(ChatColor.AQUA + "1", "Seconds", 1, 10, 1);
+	    			    sender.sendMessage("§4§l[CTF]§r Starting game in 1 seconds..");
 	    			    Thread.sleep(1000);
 	    			    player.playSound(player.getLocation(), "block.note_block.bell", 3.0F, 0.5F);
-	    			    player.sendTitle(ChatColor.GREEN + "Go!", "Seconds", 1, 10, 1);
+	    			    player.sendTitle(ChatColor.GREEN + "Go!", ChatColor.GREEN + "Seconds", 2, 10, 2);
 	    			    sender.sendMessage("§4§l[CTF]§r The game has started!");
 	    			    
 	    			    startgame(sender);
@@ -431,10 +415,56 @@ public class Main extends JavaPlugin {
 	    			    Thread.currentThread().interrupt();
 	    			}
 	    			
-	    		}      	
-	        	  
+	    		}
+	        	else {
+	        		try {
+	        		Team team = board.registerNewTeam("redteam");
+	        		Team team2 = board.registerNewTeam("blueteam");
+	        		
+	    			// Team balancing
+	    			if (team.getEntries().size() < team2.getEntries().size() ) {
+	    				team.addEntry(player.getName()); // join red team		
+	    				team2.removeEntry(player.getName()); // remove from other team in case of already selecting team
+	    				sender.sendMessage("§4§l[CTF]§r To balance the game, you have been moved to the red team.");
+	    			}
+	    			
+	    			else if (team.getEntries().size()  > team2.getEntries().size() ) {
+	    				team.removeEntry(player.getName()); // remove from other team in case of already selecting team
+	    				team2.addEntry(player.getName()); // join blue team		
+	    				sender.sendMessage("§4§l[CTF]§r To balance the game, you have been moved to the blue team.");
+	    			}
+	    			
+	    			else {
+	    				try {
+	    					team2.removeEntry(player.getName()); // remove from other team in case of already selecting team
+	    				}
+	    				catch (Exception e) {
+	    					System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Could not remove from the blue team. \n");
+	    				}
+	    				try {
+		    				team.addEntry(player.getName()); // join red team	
+		    				sender.sendMessage("§4§l[CTF]§r To balance the game, you have been moved to the red team.");
+	    				}
+	    				catch (Exception e) {
+	    					System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Could not join the red team. \n");
+	    				}
+
+	    			}
+	    			
+	    			// Disable friendly fire
+	    			team.setAllowFriendlyFire(false);	
+	    			team2.setAllowFriendlyFire(false);
+	    			
+	        		}
+	        		catch(Exception e) {
+	        			System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Team assignment error! " + e +" \n");
+	        		}
+	    			
+	        	}
+	        	
 				Thread.sleep(1000);
 				run();
+				
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -450,58 +480,81 @@ public class Main extends JavaPlugin {
 	String flag2colour = "white"; 
 	String flag3colour = "white";
 	String flag4colour = "white";
-	String stringworld = config.getString("# world: ");  
-	World world = getServer().getWorld(stringworld);
 	
-	
-    String Coordinates7 = config.getString("# redplayerspawn: ");
-    String Coordinates8 = config.getString("# blueplayerspawn: ");
-	
-    String[] array7 = Coordinates7.split(", ", -1);
-    String[] array8 = Coordinates8.split(", ", -1);	
-	
-    double x7 = Double.parseDouble(array7[0]);
-    double y7 = Double.parseDouble(array7[1]);
-    double z7 = Double.parseDouble(array7[2]);
-    
-    double x8 = Double.parseDouble(array8[0]);
-    double y8 = Double.parseDouble(array8[1]);
-    double z8 = Double.parseDouble(array8[2]);
-	
-    Location location7 = new Location(world, x7, y7, z7);
-    Location location8 = new Location(world, x8, y8, z8);
-	
-	
-	@SuppressWarnings("deprecation")
 	void startgame(CommandSender sender) {
-		Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
 		Player player = (Player) sender;
+        String stringworld = config.getString("# world: ");     
+        World worldnew = getServer().getWorld(stringworld);
+        
+	    String Coordinates7 = config.getString("# redplayerspawn: ");
+	    String Coordinates8 = config.getString("# blueplayerspawn: ");
+		
+	    String[] array7 = Coordinates7.split(", ", -1);
+	    String[] array8 = Coordinates8.split(", ", -1);	
+		
+	    double x7 = Double.parseDouble(array7[0]);
+	    double y7 = Double.parseDouble(array7[1]);
+	    double z7 = Double.parseDouble(array7[2]);
+	    
+	    double x8 = Double.parseDouble(array8[0]);
+	    double y8 = Double.parseDouble(array8[1]);
+	    double z8 = Double.parseDouble(array8[2]);
+		
+	    Location location7 = new Location(worldnew, x7, y7, z7);
+	    Location location8 = new Location(worldnew, x8, y8, z8);	
+	    
+		Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
+	    Team team = board.registerNewTeam("redteam");
+		
+	    
 		// Here we will teleport the players to the correct world, then teleport them to the correct spawn
 		// based on their team. A minimum of 2 players is required to play.
 		// Here we can also check for the player's location for if they are stood on a flag to claim it.
 		player.getWorld().setGameRuleValue("keepInventory", "true");
 		System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "A game has started. Running required asyncronous threads to enable full game functionality. \n"); 
 		
-		// Run the kit selection function 
-		kitselection(sender);
 		
-		if (board.getPlayerTeam(player).getName() == "redteam") {
+		// Set the player's team
+		try {
+			team.addEntry(player.getName()); // join red team	
+			sender.sendMessage("§4§l[CTF]§r To balance the game, you have been moved to the red team.");
+		}
+		catch (Exception e) {
+			System.out.print(TEXT_RED + "\n[CTF] " + TEXT_RESET + "Could not join the red team. \n");
+		}
+		
+		
+		// get the number of players on a team
+		//board.getEntryTeam("redteam").getEntries()
+		
+		// get the name of the team the player is on
+		// player.getScoreboard().getEntryTeam(getName())
+		
+		player.setScoreboard(board);
+		
+		sender.sendMessage("§4§l[CTF]§r Your team is " + player.getScoreboard().getEntryTeam(getName()) + " !");
+		
+		// Run the kit selection function 
+		kitselection(sender);		
+		
+		
+		if (board.getEntryTeam(player.getName()).toString() == "redteam") {
 			// Player is on the red team!
 			// Teleport them to the red spawn
 			player.teleport(location7);
+			
 		}
-		if (board.getPlayerTeam(player).getName() == "blueteam") {
+		if (board.getEntryTeam(player.getName()).toString() == "blueteam") {
 			// Player is on the red team!
 			// Teleport them to the blue spawn
-			player.teleport(location8);		
-		}
-		
+			player.teleport(location8);
+		}		
 		
 		// Remove the score board so that we can make a new one
 		player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 		
 	Bukkit.getScheduler().runTaskAsynchronously(this, new Runnable() {
-			
+		
 	    @Override
 	    public void run() {
 	    try {
@@ -1874,7 +1927,7 @@ public class Main extends JavaPlugin {
 				obj.getScore(ChatColor.GREEN + Integer.toString(board.getEntries().size()) + ChatColor.WHITE + "/20").setScore(14);		
 		        
 		        try {	        
-		        	
+		        
 		        String stringworld  = config.getString("# world: ");  
 		        var Coordinates = config.getString("# lobby: ");
 		        
@@ -1907,6 +1960,8 @@ public class Main extends JavaPlugin {
 					sender.sendMessage("§7ERROR: " + e);
 		        }
 		        
+		        playersjoin = playersjoin+1;
+		        
 		        sender.sendMessage("§4§l[CTF]§r Joined the game.");
 		        player.playSound(player.getLocation(), "block.note_block.guitar", 3.0F, 0.5F);
 		        
@@ -1917,13 +1972,16 @@ public class Main extends JavaPlugin {
 		    }
 			
 			if (args[0].equalsIgnoreCase("leave")) {
+				
+				playersjoin = playersjoin - 1;
+				
 				// leave the game
 				// remove player from score board
 				Player player = (Player) sender;
 				player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 				
         		// Remove the saturation so that they can starve
-        		player.removePotionEffect(PotionEffectType.SATURATION);
+        		//player.removePotionEffect(PotionEffectType.SATURATION);
 				
 		        try {	        
 		        	
